@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/test', function(){
     return response()->json(["message"=>"it works!"]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

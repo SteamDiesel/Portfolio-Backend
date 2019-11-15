@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 
 /*
@@ -16,3 +17,36 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/test', function(Request $request){
+    return response()->json(["message"=>"it works!"]);
+});
+
+Route::post('/user', [
+    'uses'=> 'UserController@signup'
+]);
+
+Route::post('/register', [
+    'uses' => 'Auth\AuthController@registerNewUser'
+]);
+
+Route::post('/login', [
+    'uses' => 'Auth\AuthController@loginUser'
+]);
+
+
+Route::post('/job', [
+    'uses' => 'JobController@postJob'
+]);
+
+Route::get('/jobs', [
+    'uses' => 'JobController@getJobs'
+]);
+
+Route::put('/job/{job}', [
+    'uses' => 'JobController@putJob'
+]);
+
+Route::delete('/job/{job}', [
+    'uses' => 'JobController@deleteJob'
+]);

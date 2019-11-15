@@ -12,16 +12,13 @@
         <!-- Styles -->
 
     </head>
-    <body>
-        <div id="app">
-            <div class="container pt-4">
-                <passport-clients></passport-clients>
-                <passport-authorized-clients></passport-authorized-clients>
-                <passport-personal-access-tokens></passport-personal-access-tokens>
-            </div>
-
+    <body style="height: 100vh">
+        <div class="bg-dark h-100 d-flex justify-content-center align-items-center">
+            <a href="/login">
+                <button class="btn btn-lg btn-danger" >
+                    Login
+                </button>
+            </a>
         </div>
-        <script src="js/app.js">
-        </script>
     </body>
 </html>
