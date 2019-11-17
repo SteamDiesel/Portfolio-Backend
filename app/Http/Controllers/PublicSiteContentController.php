@@ -36,6 +36,25 @@ class PublicSiteContentController extends Controller
     {
         //
 
+        $content = new PublicSiteContent();
+        $content->lander_title = $request->lander_title;
+        $content->lander_subtitle = $request->lander_subtitle;
+        $content->lander_location = $request->lander_location;
+        $content->location_link = $request->location_link;
+        $content->lander_blurb = $request->lander_blurb;
+        $content->about_title = $request->about_title;
+        $content->about_subtitle = $request->about_subtitle;
+        $content->about_description = $request->about_description;
+        $content->contact_phone = $request->contact_phone;
+        $content->contact_email = $request->contact_email;
+        $content->contact_github = $request->contact_github;
+        $content->contact_location = $request->contact_location;
+        $content->save();
+
+        return response()->json([
+            "content" => $content
+        ], 201);
+
     }
 
 
@@ -64,7 +83,7 @@ class PublicSiteContentController extends Controller
             $content->contact_email = $request->contact_email;
             $content->contact_github = $request->contact_github;
             $content->contact_location = $request->contact_location;
-            
+
             $content->save();
 
             return response()->json([

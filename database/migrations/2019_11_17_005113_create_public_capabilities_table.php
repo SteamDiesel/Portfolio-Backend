@@ -15,6 +15,7 @@ class CreatePublicCapabilitiesTable extends Migration
     {
         Schema::create('public_capabilities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('site_contents_id');
             $table->string('title');
             $table->text('description')->nullable();
             $table->tinyInteger('is_published')->default(1);

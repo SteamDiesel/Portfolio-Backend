@@ -25,4 +25,9 @@ class PublicProjects extends Model
         'is_published',
         'display_order',
     ];
+
+    public function site()
+    {
+        return $this->belongsTo('App\PublicSiteContent', 'site_contents_id');
+    }
 }

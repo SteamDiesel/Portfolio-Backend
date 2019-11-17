@@ -27,32 +27,53 @@ Route::post('/login', [
 ]);
 
 
+Route::post('/post-new-site', [
+    'uses' => 'PublicSiteContentController@store'
+])->middleware('auth:api', 'siteowner');
+
 Route::get('/sitecontent/{id}', [
     'uses'=>'PublicSiteContentController@index'
 ]);
+
+
+
+
+
+
 Route::get('/siteprojects/{id}', [
-    'uses'=>'PublicProjectsContentController@index'
+    'uses'=>'PublicProjectsController@index'
 ]);
+
+Route::post('/siteprojects/{id}', [
+    'uses'=>'PublicProjectsController@store'
+])->middleware('auth:api', 'siteowner');
+
+
+
+
+
+
+
 Route::put('/sitecontent/{id}', [
     'uses'=>'PublicSiteContentController@update'
 ])->middleware('auth:api', 'siteowner');
 
 
-Route::post('/job', [
-    'uses' => 'JobController@postJob'
-])->middleware('auth:api', 'verified');
+// Route::post('/job', [
+//     'uses' => 'JobController@postJob'
+// ])->middleware('auth:api', 'verified');
 
-Route::get('/jobs', [
-    'uses' => 'JobController@getJobs'
-])->middleware('auth:api', 'verified');
+// Route::get('/jobs', [
+//     'uses' => 'JobController@getJobs'
+// ])->middleware('auth:api', 'verified');
 
-Route::put('/job/{job}', [
-    'uses' => 'JobController@putJob'
-])->middleware('auth:api', 'verified');
+// Route::put('/job/{job}', [
+//     'uses' => 'JobController@putJob'
+// ])->middleware('auth:api', 'verified');
 
-Route::delete('/job/{job}', [
-    'uses' => 'JobController@deleteJob'
-])->middleware('auth:api', 'verified');
+// Route::delete('/job/{job}', [
+//     'uses' => 'JobController@deleteJob'
+// ])->middleware('auth:api', 'verified');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -27,4 +27,15 @@ class PublicSiteContent extends Model
         'contact_github',
         'contact_location',
     ];
+
+    public function public_projects()
+    {
+        return $this->hasMany('App\PublicProjects', 'site_contents_id');
+    }
+
+    public function public_capabilities()
+    {
+        return $this->hasMany('App\PublicCapability', 'site_contents_id');
+    }
+
 }

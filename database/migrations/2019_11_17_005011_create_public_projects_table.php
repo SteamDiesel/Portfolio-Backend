@@ -15,6 +15,7 @@ class CreatePublicProjectsTable extends Migration
     {
         Schema::create('public_projects', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('site_contents_id');
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->string('stack')->nullable();
