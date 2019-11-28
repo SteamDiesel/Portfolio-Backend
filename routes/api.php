@@ -34,10 +34,9 @@ Route::post('/post-new-site', [
 Route::get('/sitecontent/{id}', [
     'uses'=>'PublicSiteContentController@index'
 ]);
-
-
-
-
+Route::put('/sitecontent/{id}', [
+    'uses'=>'PublicSiteContentController@update'
+])->middleware('auth:api', 'siteowner');
 
 
 Route::get('/siteprojects/{id}', [
@@ -49,14 +48,11 @@ Route::post('/siteprojects/{id}', [
 ])->middleware('auth:api', 'siteowner');
 
 
-
-
-
-
-
-Route::put('/sitecontent/{id}', [
-    'uses'=>'PublicSiteContentController@update'
+Route::put('/project/{id}', [
+    'uses'=>'PublicProjectsController@update'
 ])->middleware('auth:api', 'siteowner');
+
+
 
 
 // Route::post('/job', [

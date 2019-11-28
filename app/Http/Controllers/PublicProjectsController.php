@@ -63,9 +63,26 @@ class PublicProjectsController extends Controller
      * @param  \App\PublicProjects  $publicProjects
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PublicProjects $publicProjects)
+    public function update(Request $request, $id)
     {
-        //
+
+        $project = PublicProjects::find($id);
+
+        $project->title = $request->title;
+        $project->subtitle = $request->subtitle;
+        $project->stack = $request->stack;
+        $project->brief_description = $request->brief_description;
+        $project->long_description = $request->long_description;
+        $project->url = $request->url;
+        $project->github = $request->github;
+        $project->image_url = $request->image_url;
+        $project->is_published = $request->is_published;
+        $project->display_order = $request->display_order;
+        $project->save();
+
+        return response()->json([
+            "project" => $project
+        ], 201);
     }
 
     /**
