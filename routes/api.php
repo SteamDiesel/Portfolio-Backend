@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\PublicSiteContent;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+// use Asana\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +17,67 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::post('/user', [
-//     'uses'=> 'UserController@signup'
-// ]);
+Route::get('/asana', function(){
 
+    $workspaceId = "440339215329199";
+    $assignee = "936031551791212";
+    $task = "1151729907759745";
+    $headers = [
+        'Accept'=> 'application/json',
+        'Authorization' => 'Bearer '.env('ASANA_PERSONAL_ACCESS_TOKEN')
+    ];
+    $client = new Client([
+        'base_uri' => 'https://app.asana.com/api/1.0/',
+        "headers" => $headers
+    ]);
+
+    $response = $client->get('/tasks/'.$task);
+
+    return response()->json([
+        "response"=> $response
+        ]);
+});
+// Route::post('/asana', function(Request $request){
+//     $asana_client = Client::accessToken(env('ASANA_PERSONAL_ACCESS_TOKEN'));
+//     $workspaceId = "440339215329199";
+//     $projectId = "1147191225348433";
+//     $task =  [
+//         // "assignee"=>"936031551791212",
+//         // "workspace"=>"440339215329199",
+//         // "Asana-Disable"=>"new_sections",
+//         // "project"=>"1147191225348433",
+//         // "section"=>"1147191225348440",
+//         "name" => $request->name,
+//         "notes"=> $request->notes
+//     ];
+
+//     $new_task = $asana_client->tasks->createInWorkspace($workspaceId, array(
+//         "name" => $request->name,
+//         "notes"=> $request->notes
+//     ));
+
+//     return response()->json([
+//         "message"=>"Asana POST Route is working!",
+//         "created_task" => $new_task
+//         ]);
+// });
+
+
+
+
+
+//AUTH ROUTES
+//-----------------------------------------------------------------------
 Route::post('/register', [
     'uses' => 'Auth\AuthController@registerNewUser'
 ]);
 Route::post('/login', [
     'uses' => 'Auth\AuthController@loginUser'
 ]);
+//========================================================================
 
-
+//STEAMDIESEL.DEV CONTENT ROUTES
+//------------------------------------------------------------------------
 Route::post('/post-new-site', [
     'uses' => 'PublicSiteContentController@store'
 ])->middleware('auth:api', 'siteowner');
@@ -51,30 +102,8 @@ Route::post('/siteprojects/{id}', [
 Route::put('/project/{id}', [
     'uses'=>'PublicProjectsController@update'
 ])->middleware('auth:api', 'siteowner');
+//=========================================================================
 
 
 
 
-// Route::post('/job', [
-//     'uses' => 'JobController@postJob'
-// ])->middleware('auth:api', 'verified');
-
-// Route::get('/jobs', [
-//     'uses' => 'JobController@getJobs'
-// ])->middleware('auth:api', 'verified');
-
-// Route::put('/job/{job}', [
-//     'uses' => 'JobController@putJob'
-// ])->middleware('auth:api', 'verified');
-
-// Route::delete('/job/{job}', [
-//     'uses' => 'JobController@deleteJob'
-// ])->middleware('auth:api', 'verified');
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('/test', function(Request $request){
-    return response()->json(["message"=>"Backend API is working!"]);
-});
