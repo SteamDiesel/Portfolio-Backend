@@ -1,10 +1,10 @@
 <?php
 
+use App\AsanaChannel;
 use App\Http\Controllers\Auth\AuthController;
 use App\PublicSiteContent;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-// use Asana\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,50 +17,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/asana', function(){
+Route::post('/asana_channel/new', [
+    'uses' => 'AsanaChannelController@store'
+]);
 
-    $workspaceId = "440339215329199";
-    $assignee = "936031551791212";
-    $task = "1151729907759745";
-    $headers = [
-        'Accept'=> 'application/json',
-        'Authorization' => 'Bearer '.env('ASANA_PERSONAL_ACCESS_TOKEN')
-    ];
-    $client = new Client([
-        'base_uri' => 'https://app.asana.com/api/1.0/',
-        "headers" => $headers
-    ]);
 
-    $response = $client->get('/tasks/'.$task);
+Route::post('/asana/newlead/{key}', [
+    'uses' => 'AsanaLeadController@post_lead'
+]);
 
-    return response()->json([
-        "response"=> $response
-        ]);
-});
-// Route::post('/asana', function(Request $request){
-//     $asana_client = Client::accessToken(env('ASANA_PERSONAL_ACCESS_TOKEN'));
-//     $workspaceId = "440339215329199";
-//     $projectId = "1147191225348433";
-//     $task =  [
-//         // "assignee"=>"936031551791212",
-//         // "workspace"=>"440339215329199",
-//         // "Asana-Disable"=>"new_sections",
-//         // "project"=>"1147191225348433",
-//         // "section"=>"1147191225348440",
-//         "name" => $request->name,
-//         "notes"=> $request->notes
-//     ];
-
-//     $new_task = $asana_client->tasks->createInWorkspace($workspaceId, array(
-//         "name" => $request->name,
-//         "notes"=> $request->notes
-//     ));
-
-//     return response()->json([
-//         "message"=>"Asana POST Route is working!",
-//         "created_task" => $new_task
-//         ]);
-// });
 
 
 
@@ -103,7 +68,4 @@ Route::put('/project/{id}', [
     'uses'=>'PublicProjectsController@update'
 ])->middleware('auth:api', 'siteowner');
 //=========================================================================
-
-
-
 

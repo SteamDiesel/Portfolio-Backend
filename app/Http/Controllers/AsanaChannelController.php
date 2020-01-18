@@ -35,7 +35,34 @@ class AsanaChannelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'key' => 'required|string|unique:asana_channels|min:4|max:64',
+            'title' => 'required|string',
+            'auth_token' => 'required|string',
+            'description' => 'required|string',
+            'fields' => 'string|nullable',
+            'workspace_gid' => 'required|string',
+            'project_gid' => 'string|nullable',
+            'section_gid' => 'string|nullable',
+            'assignee_gid' => 'string|nullable'
+        ]);
+
+        
+        $channel = new AsanaChannel();
+        $channel->key = $request->key;
+        $channel->title = $request->title;
+        $channel->auth_token = $request->auth_token;
+        $channel->description = $request->description;
+        $channel->fields = $request->fields;
+        $channel->workspace_gid = $request->workspace_gid;
+        $channel->project_gid = $request->project_gid;
+        $channel->section_gid = $request->section_gid;
+        $channel->assignee_gid = $request->assignee_gid;
+        $channel->save();
+
+        return response()->json([
+            "channel" => $channel
+        ], 200);
     }
 
     /**

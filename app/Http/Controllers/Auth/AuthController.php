@@ -43,7 +43,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function loginUser(Request $request)
+    public function signInUser(Request $request)
     {
         $request->validate([
             'email'=>'required|string|email',

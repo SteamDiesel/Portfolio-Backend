@@ -15,14 +15,15 @@ class CreateAsanaChannelsTable extends Migration
     {
         Schema::create('asana_channels', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('key')->unique();
             $table->string('title');
-            $table->text('auth_token')->nullable();
-            $table->text('description')->nullable();
+            $table->text('auth_token');
+            $table->text('description');
+            $table->string('workspace_gid');
             $table->text('fields')->nullable();
-            $table->bigInteger('workspace_gid')->nullable();
-            $table->bigInteger('project_gid')->nullable();
-            $table->bigInteger('section_gid')->nullable();
-            $table->bigInteger('assignee_gid')->nullable();
+            $table->string('project_gid')->nullable();
+            $table->string('section_gid')->nullable();
+            $table->string('assignee_gid')->nullable();
             $table->timestamps();
         });
     }
