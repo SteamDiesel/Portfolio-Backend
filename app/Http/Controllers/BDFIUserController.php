@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\BDFIVisitor;
+use App\BDFIUser;
 use Illuminate\Http\Request;
 
-class BDFIVisitorController extends Controller
+class BDFIUserController extends Controller
 {
     // /**
     //  * Display a listing of the resource.
@@ -33,28 +33,35 @@ class BDFIVisitorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function log(Request $request)
+    public function store(Request $request)
     {
 		
-		$entry = new BDFIVisitor();
-		$entry->user_name = $request->user_name;
-		$entry->user_email = $request->user_email;
-		$entry->user_phone = $request->user_phone;
-		$entry->user_business_name = $request->user_business_name;
-		$entry->user_business_address = $request->user_business_address;
-		$entry->ip_address = $request->ip();
-		$entry->save();
-
+		$user = BDFIUser::firstOrCreate(['session_uuid' => $request->session_uuid]);
+		
+        $user->session_uuid = $request->session_uuid;
+		$user->email = $request->email;
+		$user->first_name = $request->first_name;
+		$user->surname = $request->surname;
+		$user->country = $request->country;
+		$user->phone_number = $request->phone_number;
+		$user->business_name = $request->business_name;
+		$user->role = $request->role;
+		$user->business_address = $request->business_address;
+		$user->brand_image_url = $request->brand_image_url;
+		$user->email_image_url = $request->email_image_url;
+		$user->show_copy_button = $request->show_copy_button;
+		$user->confirm_delete_prompts = $request->confirm_delete_prompts;
+		$user->save();
+		
     }
-
 
     // /**
     //  * Display the specified resource.
     //  *
-    //  * @param  \App\BDFIVisitor  $bDFIVisitor
+    //  * @param  \App\BDFIUser  $bDFIUser
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function show(BDFIVisitor $bDFIVisitor)
+    // public function show(BDFIUser $bDFIUser)
     // {
     //     //
     // }
@@ -62,10 +69,10 @@ class BDFIVisitorController extends Controller
     // /**
     //  * Show the form for editing the specified resource.
     //  *
-    //  * @param  \App\BDFIVisitor  $bDFIVisitor
+    //  * @param  \App\BDFIUser  $bDFIUser
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function edit(BDFIVisitor $bDFIVisitor)
+    // public function edit(BDFIUser $bDFIUser)
     // {
     //     //
     // }
@@ -74,10 +81,10 @@ class BDFIVisitorController extends Controller
     //  * Update the specified resource in storage.
     //  *
     //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  \App\BDFIVisitor  $bDFIVisitor
+    //  * @param  \App\BDFIUser  $bDFIUser
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function update(Request $request, BDFIVisitor $bDFIVisitor)
+    // public function update(Request $request, BDFIUser $bDFIUser)
     // {
     //     //
     // }
@@ -85,10 +92,10 @@ class BDFIVisitorController extends Controller
     // /**
     //  * Remove the specified resource from storage.
     //  *
-    //  * @param  \App\BDFIVisitor  $bDFIVisitor
+    //  * @param  \App\BDFIUser  $bDFIUser
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function destroy(BDFIVisitor $bDFIVisitor)
+    // public function destroy(BDFIUser $bDFIUser)
     // {
     //     //
     // }

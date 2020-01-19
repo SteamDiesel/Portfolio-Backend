@@ -26,10 +26,11 @@ Route::post('/asana/newlead/{key}', [
     'uses' => 'AsanaLeadController@post_lead'
 ]);
 
-// ApplicationSource Routes --------------------------------------
+// BDFI Logging Routes --------------------------------------
 // Route::get('/team/{team}/application_sources', 'ApplicationSourceController@index');
-Route::post('/lite-bdfi-app/visitor-log', 'BDFIVisitorController@store');
-// ```````````````````````````````````````````````````````
+Route::post('/lite-bdfi-app/visitor-log', 'BDFIVisitorController@log');
+Route::post('/lite-bdfi-app/user-details-update', 'BDFIUserController@store');
+// ``````````````````````````````````````````````````````````
 
 
 
